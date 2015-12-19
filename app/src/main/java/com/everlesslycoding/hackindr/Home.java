@@ -9,17 +9,20 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.everlesslycoding.hackindr.MainContentFragments.CreateIdea;
 import com.everlesslycoding.hackindr.MainContentFragments.IdeaView;
 import com.everlesslycoding.hackindr.MainContentFragments.PopularIdeaLists;
 
 public class Home extends FragmentActivity {
 
-    public static final int NUM_PAGES = 2;
+    public static final int NUM_PAGES = 3;
 
     private static final String TAG = "Home Activity";
 
     IdeaView mIdeaView = new IdeaView();
     PopularIdeaLists mPopularIdeaLists = new PopularIdeaLists();
+    CreateIdea mCreateIdea = new CreateIdea();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +43,12 @@ public class Home extends FragmentActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
+                    Log.d("[Fragment Selector]", "Create Idea");
+                    return mCreateIdea;
+                case 1:
                     Log.d("[Fragment Selector]", "Idea View");
                     return mIdeaView;
-                case 1:
+                case 2:
                     Log.d("[Fragment Selector]", "Popular ideas list");
                     return mPopularIdeaLists;
                 default:
