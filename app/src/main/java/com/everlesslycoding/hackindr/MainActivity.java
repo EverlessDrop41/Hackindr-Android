@@ -25,7 +25,7 @@ import java.net.Proxy;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "Login Activity";
-    public static final String BASE_URL = "http://70e6ceb0.ngrok.io";
+    public static final String BASE_URL = "https://guarded-peak-3877.herokuapp.com/";
 
     EditText emailInput;
     EditText passwordInput;
@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         Log.d(TAG, "Error logging in");
+                        Log.d(TAG, response.body().string());
                     }
                 });
             }

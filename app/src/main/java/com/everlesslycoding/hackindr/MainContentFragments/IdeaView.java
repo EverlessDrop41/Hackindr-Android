@@ -117,11 +117,11 @@ public class IdeaView extends Fragment {
                                             if (message != null && message.equals("You have already voted")) {
                                                 OutOfIdeas();
                                             } else {
-                                                Toast.makeText(getContext(), "Error voting on idea!", Toast.LENGTH_LONG).show();
+                                                Toast.makeText(getContext(), "Error creating idea!", Toast.LENGTH_LONG).show();
                                             }
                                         } catch (JSONException e) {
                                             e.printStackTrace();
-                                            Toast.makeText(getContext(), "Error voting on idea!", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(getContext(), "Error creating idea!", Toast.LENGTH_LONG).show();
                                         }
                                     }
                                 });
@@ -148,14 +148,18 @@ public class IdeaView extends Fragment {
     }
 
     public void updateIdeaView() {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                IdeaTitle.setText(currentIdea.getTitle());
-                IdeaContent.setText(currentIdea.getContent());
-                showButtons();
-            }
-        });
+        try {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    IdeaTitle.setText(currentIdea.getTitle());
+                    IdeaContent.setText(currentIdea.getContent());
+                    showButtons();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void getNextIdea() {
@@ -209,7 +213,7 @@ public class IdeaView extends Fragment {
     }
 
     private void OutOfIdeas() {
-        Toast.makeText(getContext(), "Sorry, we're out of ideas :(", Toast.LENGTH_LONG).show();
+//        Toast.makeText(getContext(), "Sorry, we're out of ideas :(", Toast.LENGTH_LONG).show();
 
         setCurrentIdea(new Idea("No idea", "Sorry, like you, we have no ideas", -1));
         hideButtons();
