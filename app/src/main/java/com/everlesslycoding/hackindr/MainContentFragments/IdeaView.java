@@ -19,7 +19,9 @@ import com.everlesslycoding.hackindr.Models.Idea;
 import com.everlesslycoding.hackindr.R;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONObject;
@@ -37,7 +39,6 @@ public class IdeaView extends Fragment {
     TextView IdeaContent;
     Button LikeButton;
     Button DislikeButton;
-    Button SkipButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,11 +51,37 @@ public class IdeaView extends Fragment {
         IdeaContent = (TextView) rootView.findViewById(R.id.ideaDescription);
         LikeButton = (Button) rootView.findViewById(R.id.likeButton);
         DislikeButton = (Button) rootView.findViewById(R.id.dislikeButton);
-        SkipButton = (Button) rootView.findViewById(R.id.skipButton);
+
+        IdeaTitle.setText("Loading Title...");
+        IdeaContent.setText("Loading Content...");
+        hideButtons();
+
+        LikeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "You like this idea!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        DislikeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "You dislike this idea!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         getNextIdea();
 
         return rootView;
+    }
+
+    public void VoteOnPost(boolean didLike) {
+        try {
+            RequestBody voteBody = new FormEncodingBuilder().add("vote", String.valueOf(didLike)).build();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void setCurrentIdea(Idea currentIdea) {
@@ -68,6 +95,7 @@ public class IdeaView extends Fragment {
             public void run() {
                 IdeaTitle.setText(currentIdea.getTitle());
                 IdeaContent.setText(currentIdea.getContent());
+                showButtons();
             }
         });
     }
@@ -111,11 +139,22 @@ public class IdeaView extends Fragment {
                 }
             }
         });
+    }
 
-        setCurrentIdea(new Idea("No idea", "Sorry, like you, we have no ideas", -1));
+    void showButtons(){
+        LikeButton.setVisibility(View.VISIBLE);
+        DislikeButton.setVisibility(View.VISIBLE);
+    }
+
+    void hideButtons() {
+        LikeButton.setVisibility(View.GONE);
+        DislikeButton.setVisibility(View.GONE);
     }
 
     private void OutOfIdeas() {
         Toast.makeText(getContext(), "Sorry, we're out of ideas :(", Toast.LENGTH_LONG).show();
+
+        setCurrentIdea(new Idea("No idea", "Sorry, like you, we have no ideas", -1));
+        hideButtons();
     }
 }
