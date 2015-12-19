@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.okhttp.Authenticator;
@@ -41,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
         client = new OkHttpClient();
 
-        emailInput = (EditText) findViewById(R.id.emailInput);
-        passwordInput = (EditText) findViewById(R.id.passwordInput);
+        emailInput = (EditText) findViewById(R.id.titleInput);
+        passwordInput = (EditText) findViewById(R.id.descriptionInput);
         loginButton = (Button) findViewById(R.id.logInButton);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
