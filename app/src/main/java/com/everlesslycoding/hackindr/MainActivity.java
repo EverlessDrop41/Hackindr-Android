@@ -26,7 +26,7 @@ import java.net.Proxy;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "Login Activity";
-    public static final String BASE_URL = "http://f907f631.ngrok.io";
+    public static final String BASE_URL = "http://70e6ceb0.ngrok.io";
 
     EditText emailInput;
     EditText passwordInput;
