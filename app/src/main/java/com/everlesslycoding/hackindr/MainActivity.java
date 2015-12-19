@@ -1,5 +1,6 @@
 package com.everlesslycoding.hackindr;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
                 // TODO: 19/12/2015 Use the webserver to handle user auth
 
                 // TODO: 19/12/2015 Move to new activity
+                Intent i = new Intent(getApplicationContext(), Home.class);
+                startActivity(i);
 
                 Toast.makeText(getApplicationContext(), emailInput.getText().toString(), Toast.LENGTH_SHORT).show();
             }
