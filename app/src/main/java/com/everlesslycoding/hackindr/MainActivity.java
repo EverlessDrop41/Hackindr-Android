@@ -18,6 +18,8 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.net.Proxy;
 
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "Password: " + passwordInput.getText().toString());
 
                 // TODO: 19/12/2015 Use the webserver to handle user auth
-                /*client.setAuthenticator(new Authenticator() {
+                client.setAuthenticator(new Authenticator() {
                     @Override
                     public Request authenticate(Proxy proxy, Response response) throws IOException {
                         String credential = Credentials.basic(emailInput.getText().toString(), passwordInput.getText().toString());
@@ -78,14 +80,21 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Response response) throws IOException {
                         if (response.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(), response.body().string(), Toast.LENGTH_SHORT).show();
+                            String data = response.body().string();
+                            Log.d(TAG, data);
+                            Intent i = new Intent(getApplicationContext(), Home.class);
+                            try {
+                                JSONObject JSONData = new JSONObject(data);
+                                i.putExtra("Duration", JSONData.getString("duration"));
+                                i.putExtra("Token", JSONData.getString("token"));
+                                startActivity(i);
+                            } catch (Exception e) {
+                                Log.e(TAG, "Bad things have happened");
+                            }
                         }
-                        Log.d(TAG, response.body().string());
+                        Log.d(TAG, "Error logging in");
                     }
-                });*/
-                // TODO: 19/12/2015 Move to new activity
-                Intent i = new Intent(getApplicationContext(), Home.class);
-                startActivity(i);
+                });
             }
         });
     }
