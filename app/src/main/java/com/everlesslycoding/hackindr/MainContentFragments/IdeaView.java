@@ -24,10 +24,12 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Deque;
+import java.util.Objects;
 
 public class IdeaView extends Fragment {
 
@@ -60,6 +62,7 @@ public class IdeaView extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "You like this idea!", Toast.LENGTH_SHORT).show();
+                VoteOnPost(true);
             }
         });
 
@@ -67,6 +70,7 @@ public class IdeaView extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "You dislike this idea!", Toast.LENGTH_SHORT).show();
+                VoteOnPost(false);
             }
         });
 
@@ -77,7 +81,61 @@ public class IdeaView extends Fragment {
 
     public void VoteOnPost(boolean didLike) {
         try {
-            RequestBody voteBody = new FormEncodingBuilder().add("vote", String.valueOf(didLike)).build();
+            RequestBody voteBody = new FormEncodingBuilder()
+                    .add("vote", String.valueOf(didLike))
+                    .add("idea", String.valueOf(currentIdea.getId()))
+                    .build();
+
+            Request request = new Request.Builder().url(MainActivity.BASE_URL + "/ideas/vote").post(voteBody).build();
+
+            Call call = MainActivity.client.newCall(request);
+
+            call.enqueue(new Callback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    Log.d(TAG, e.getMessage());
+                }
+
+                @Override
+                public void onResponse(Response response) throws IOException {
+                    if (response.isSuccessful()) {
+                        String res = response.body().string();
+                        try {
+                            final JSONObject data = new JSONObject(res);
+                            boolean success = data.getBoolean("success");
+                            Log.d(TAG, res);
+
+                            if (success) {
+                                getNextIdea();
+                            }
+                            else {
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            String message = data.getString("message");
+                                            if (message != null && message.equals("You have already voted")) {
+                                                OutOfIdeas();
+                                            } else {
+                                                Toast.makeText(getContext(), "Error voting on idea!", Toast.LENGTH_LONG).show();
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                            Toast.makeText(getContext(), "Error voting on idea!", Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                });
+                            }
+                        } catch (Exception e) {
+                            Log.d(TAG, "Error parsing JSON");
+                            e.printStackTrace();
+                        }
+                        Log.d(TAG, res);
+                    } else {
+                        Log.d(TAG, "The request was unsuccesful: " + response.body().string());
+                    }
+                }
+            });
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,7 +171,6 @@ public class IdeaView extends Fragment {
             @Override
             public void onResponse(Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    // TODO: 19/12/2015 Cool Shit
                     String res = response.body().string();
                     try {
                         JSONObject data = new JSONObject(res);

@@ -6,15 +6,13 @@ package com.everlesslycoding.hackindr.Models;
 public class Idea {
     String title;
     String content;
-    int votes;
-    User user;
+    int id;
 
     public Idea(String title, String content, int votes) {
 
         this.title = title;
         this.content = content;
-        this.votes = votes;
-        this.user = user;
+        this.id = votes;
     }
 
     public String getTitle() {
@@ -33,19 +31,11 @@ public class Idea {
         this.content = content;
     }
 
-    public int getVotes() {
-        return votes;
+    public int getId() {
+        return id;
     }
 
-    public void setVotes(int votes) {
-        this.votes = votes;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public void setId(int id) {
+        this.id = id;
     }
 }
