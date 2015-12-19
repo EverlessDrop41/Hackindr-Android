@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.everlesslycoding.hackindr.MainContentFragments.IdeaView;
 import com.everlesslycoding.hackindr.MainContentFragments.PopularIdeaLists;
@@ -37,10 +38,13 @@ public class Home extends FragmentActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
+                    Log.d("[Fragment Selector]", "Idea View");
                     return mIdeaView;
                 case 1:
+                    Log.d("[Fragment Selector]", "Popular ideas list");
                     return mPopularIdeaLists;
                 default:
+                    Log.d("[Fragment Selector]", "Default");
                     return mIdeaView;
             }
         }
