@@ -10,24 +10,34 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.okhttp.Authenticator;
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Credentials;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
+import java.net.Proxy;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "Login Activity";
+    public static final String BASE_URL = "http://f907f631.ngrok.io";
 
     EditText emailInput;
     EditText passwordInput;
     Button loginButton;
 
+    OkHttpClient client;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        client = new OkHttpClient();
 
         emailInput = (EditText) findViewById(R.id.emailInput);
         passwordInput = (EditText) findViewById(R.id.passwordInput);
@@ -40,12 +50,39 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "Password: " + passwordInput.getText().toString());
 
                 // TODO: 19/12/2015 Use the webserver to handle user auth
-                /*try {
-                    HttpOperations http = new HttpOperations();
-                    http.doGetRequest("http://f907f631.ngrok.io");
-                } catch (IOException e) {
-                    Toast.makeText(getApplicationContext(), "Error performing http requests", Toast.LENGTH_SHORT).show();
-                }*/
+                /*client.setAuthenticator(new Authenticator() {
+                    @Override
+                    public Request authenticate(Proxy proxy, Response response) throws IOException {
+                        String credential = Credentials.basic(emailInput.getText().toString(), passwordInput.getText().toString());
+                        if (credential.equals(response.request().header("Authorization"))) {
+                            return null;
+                        }
+                        return response.request().newBuilder().header("Authorization", credential).build();
+                    }
+
+                    @Override
+                    public Request authenticateProxy(Proxy proxy, Response response) throws IOException {
+                        return null;
+                    }
+                });
+
+                Request request = new Request.Builder().url(BASE_URL + "/token").build();
+                Call call = client.newCall(request);
+
+                call.enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Request request, IOException e) {
+                        Toast.makeText(getApplicationContext(), "Error performing http requests", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onResponse(Response response) throws IOException {
+                        if (response.isSuccessful()) {
+                            Toast.makeText(getApplicationContext(), response.body().string(), Toast.LENGTH_SHORT).show();
+                        }
+                        Log.d(TAG, response.body().string());
+                    }
+                });*/
                 // TODO: 19/12/2015 Move to new activity
                 Intent i = new Intent(getApplicationContext(), Home.class);
                 startActivity(i);
