@@ -14,7 +14,9 @@ import com.everlesslycoding.hackindr.MainContentFragments.PopularIdeaLists;
 
 public class Home extends FragmentActivity {
 
-   public static final int NUM_PAGES = 2;
+    public static final int NUM_PAGES = 2;
+
+    private static final String TAG = "Home Activity";
 
     IdeaView mIdeaView = new IdeaView();
     PopularIdeaLists mPopularIdeaLists = new PopularIdeaLists();

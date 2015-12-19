@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     EditText passwordInput;
     Button loginButton;
 
-    OkHttpClient client;
+    public static OkHttpClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

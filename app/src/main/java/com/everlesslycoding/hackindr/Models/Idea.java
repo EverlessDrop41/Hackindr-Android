@@ -9,7 +9,7 @@ public class Idea {
     int votes;
     User user;
 
-    public Idea(String title, String content, int votes, User user) {
+    public Idea(String title, String content, int votes) {
 
         this.title = title;
         this.content = content;
