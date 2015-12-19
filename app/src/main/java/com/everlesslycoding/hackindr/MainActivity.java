@@ -10,6 +10,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "Login Activity";
@@ -34,12 +40,15 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "Password: " + passwordInput.getText().toString());
 
                 // TODO: 19/12/2015 Use the webserver to handle user auth
-
+                /*try {
+                    HttpOperations http = new HttpOperations();
+                    http.doGetRequest("http://f907f631.ngrok.io");
+                } catch (IOException e) {
+                    Toast.makeText(getApplicationContext(), "Error performing http requests", Toast.LENGTH_SHORT).show();
+                }*/
                 // TODO: 19/12/2015 Move to new activity
                 Intent i = new Intent(getApplicationContext(), Home.class);
                 startActivity(i);
-
-                Toast.makeText(getApplicationContext(), emailInput.getText().toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }
