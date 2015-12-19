@@ -9,12 +9,14 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 
 import com.everlesslycoding.hackindr.MainContentFragments.IdeaView;
+import com.everlesslycoding.hackindr.MainContentFragments.PopularIdeaLists;
 
 public class Home extends FragmentActivity {
 
-   public static final int NUM_PAGES = 1;
+   public static final int NUM_PAGES = 2;
 
     IdeaView mIdeaView = new IdeaView();
+    PopularIdeaLists mPopularIdeaLists = new PopularIdeaLists();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,8 @@ public class Home extends FragmentActivity {
             switch (position) {
                 case 0:
                     return mIdeaView;
+                case 1:
+                    return mPopularIdeaLists;
                 default:
                     return mIdeaView;
             }
