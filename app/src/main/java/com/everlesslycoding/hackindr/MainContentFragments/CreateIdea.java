@@ -97,6 +97,7 @@ public class CreateIdea extends Fragment {
                                             .setTitle("Success")
                                             .setMessage("Your idea has successfully been made").create();
                                     alertDialog.show();
+                                    clearForm();
                                 }
                             });
                         }
