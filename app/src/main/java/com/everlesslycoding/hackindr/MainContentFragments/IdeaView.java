@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Debug;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +51,8 @@ public class IdeaView extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_idea_view, container, false);
 
+
+
         IdeaTitle = (TextView) rootView.findViewById(R.id.ideaTitle);
         IdeaContent = (TextView) rootView.findViewById(R.id.ideaDescription);
         LikeButton = (Button) rootView.findViewById(R.id.likeButton);
@@ -82,6 +86,7 @@ public class IdeaView extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
         if (IdeaTitle.getText() == "" || IdeaTitle.getText() == "No idea") {
             hideButtons();
             getNextIdea();
@@ -230,5 +235,8 @@ public class IdeaView extends Fragment {
 
         setCurrentIdea(new Idea("No idea", "Sorry, like you, we have no ideas", -1));
         hideButtons();
+    }
+    private ActionBar getActionBar() {
+        return ((ActionBarActivity) getActivity()).getSupportActionBar();
     }
 }

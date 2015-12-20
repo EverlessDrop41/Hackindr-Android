@@ -2,6 +2,8 @@ package com.everlesslycoding.hackindr.MainContentFragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -56,6 +58,11 @@ public class CreateIdea extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     void submitIdea() {
         RequestBody createBody = new FormEncodingBuilder()
                 .add("title", titleInput.getText().toString())
@@ -108,6 +115,9 @@ public class CreateIdea extends Fragment {
     void clearForm () {
         titleInput.setText("");
         contentInput.setText("");
+    }
+    private ActionBar getActionBar() {
+        return ((ActionBarActivity) getActivity()).getSupportActionBar();
     }
 }
 

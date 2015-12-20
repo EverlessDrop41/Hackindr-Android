@@ -16,23 +16,16 @@ public class PopularIdea extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_popular_idea);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         TextView titleView = (TextView) findViewById(R.id.ideaTitle);
         TextView contentView = (TextView) findViewById(R.id.ideaDescription);
 
         Intent intent = getIntent();
         titleView.setText(intent.getStringExtra("title"));
+
         contentView.setText(intent.getStringExtra("content"));
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

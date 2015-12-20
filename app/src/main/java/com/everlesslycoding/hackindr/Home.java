@@ -8,13 +8,14 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 
 import com.everlesslycoding.hackindr.MainContentFragments.CreateIdea;
 import com.everlesslycoding.hackindr.MainContentFragments.IdeaView;
 import com.everlesslycoding.hackindr.MainContentFragments.PopularIdeaLists;
 
-public class Home extends FragmentActivity {
+public class Home extends ActionBarActivity {
 
     public static final int NUM_PAGES = 3;
 

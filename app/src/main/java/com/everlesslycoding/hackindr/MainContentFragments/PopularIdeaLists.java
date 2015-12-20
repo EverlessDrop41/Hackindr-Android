@@ -3,6 +3,8 @@ package com.everlesslycoding.hackindr.MainContentFragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,6 +63,16 @@ public class PopularIdeaLists extends Fragment {
         popularListView.setOnItemClickListener(mMessageClickedHandler);
         getPopular();
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    private ActionBar getActionBar() {
+        return ((ActionBarActivity) getActivity()).getSupportActionBar();
     }
 
     public void getPopular() {
