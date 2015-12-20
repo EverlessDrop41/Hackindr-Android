@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     EditText emailInput;
     EditText passwordInput;
     Button loginButton;
+    Button signUpButton;
 
     public static OkHttpClient client;
 
@@ -43,6 +44,15 @@ public class MainActivity extends AppCompatActivity {
         emailInput = (EditText) findViewById(R.id.titleInput);
         passwordInput = (EditText) findViewById(R.id.descriptionInput);
         loginButton = (Button) findViewById(R.id.logInButton);
+        signUpButton = (Button) findViewById(R.id.signUpButton);
+
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+                startActivity(intent);
+            }
+        });
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
