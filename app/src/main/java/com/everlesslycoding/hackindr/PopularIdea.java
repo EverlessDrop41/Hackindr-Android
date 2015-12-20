@@ -26,10 +26,12 @@ public class PopularIdea extends AppCompatActivity {
         Intent intent = getIntent();
         titleView.setText(intent.getStringExtra("title"));
 
+
         contentView.setText(intent.getStringExtra("content"));
 
         try {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(intent.getStringExtra("title"));
             //getActionBar().setDisplayHomeAsUpEnabled(true);
         } catch (Exception e) {
             Log.d("An error", e.toString());
