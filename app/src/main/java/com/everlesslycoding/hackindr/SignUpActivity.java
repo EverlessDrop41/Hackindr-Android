@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
@@ -28,6 +29,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private EditText mEmailEditText;
     private EditText mPasswordEditText;
+    private EditText mPassword2EditText;
     private Button mSignUpButton;
     private String TAG = "SignUpActivity";
 
@@ -49,11 +51,21 @@ public class SignUpActivity extends AppCompatActivity {
 
         mEmailEditText = (EditText) findViewById(R.id.emailEditText);
         mPasswordEditText = (EditText) findViewById(R.id.passwordEditText);
+        mPassword2EditText = (EditText) findViewById(R.id.passwordEditText2);
         mSignUpButton = (Button) findViewById(R.id.signUpButton);
 
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String email = mEmailEditText.getText().toString();
+                String password1 = mPasswordEditText.getText().toString();
+                String password2 = mPassword2EditText.getText().toString();
+
+                if (!password1.equals(password2)) {
+                    Toast.makeText(SignUpActivity.this, "Passwords must match!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 RequestBody createBody = new FormEncodingBuilder()
                         .add("email", mEmailEditText.getText().toString())
                         .add("password", mPasswordEditText.getText().toString())
@@ -85,7 +97,7 @@ public class SignUpActivity extends AppCompatActivity {
                                         public void run() {
                                             AlertDialog alertDialog = new AlertDialog.Builder(SignUpActivity.this)
                                                     .setTitle("Success")
-                                                    .setMessage("Your idea has successfully been made").create();
+                                                    .setMessage("Yoh have successfully signed up!").create();
                                             alertDialog.show();
                                         }
                                     });
