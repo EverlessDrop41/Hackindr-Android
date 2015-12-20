@@ -1,5 +1,6 @@
 package com.everlesslycoding.hackindr;
 
+import android.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -42,13 +43,13 @@ public class Home extends FragmentActivity {
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-                case 0:
+                case 2:
                     Log.d("[Fragment Selector]", "Create Idea");
                     return mCreateIdea;
                 case 1:
                     Log.d("[Fragment Selector]", "Idea View");
                     return mIdeaView;
-                case 2:
+                case 0:
                     Log.d("[Fragment Selector]", "Popular ideas list");
                     return mPopularIdeaLists;
                 default:

@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         Log.d(TAG, "Error logging in");
-                        Log.d(TAG, response.body().string());
+                        //Log.d(TAG, response.body().string());
                     }
                 });
             }

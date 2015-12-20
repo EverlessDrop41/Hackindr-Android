@@ -79,6 +79,16 @@ public class IdeaView extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (IdeaTitle.getText() == "" || IdeaTitle.getText() == "No idea") {
+            hideButtons();
+            getNextIdea();
+        }
+    }
+
+
     public void VoteOnPost(boolean didLike) {
         try {
             RequestBody voteBody = new FormEncodingBuilder()
@@ -148,6 +158,8 @@ public class IdeaView extends Fragment {
     }
 
     public void updateIdeaView() {
+        if(getActivity() == null)
+            return;
         try {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -208,6 +220,7 @@ public class IdeaView extends Fragment {
     }
 
     void hideButtons() {
+        Log.d(TAG, "Hide Buttons");
         LikeButton.setVisibility(View.GONE);
         DislikeButton.setVisibility(View.GONE);
     }
